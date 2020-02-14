@@ -6,5 +6,32 @@
 </head>
 <body>
 
+<select id="selectorVendedores"  onchange="console.log(this.value)">
+    <option value="1">Opción 1</option>
+    <option value="2">Opción 2</option>
+    <option value="3">Opción 3</option>
+    <option value="4">Opción 4</option>
+
+</select>
+
+
+<script>
+    //peticiones asincronas a un servidor,
+    // sin tener que recargar la pagina
+    fetch("api/vendedores.json").then(function(respuesta){
+        //console.log(respuesta);
+        return respuesta.json();//este metodo coge los datos que me ha devuelto y los intenta convertir en formato json
+    }).then(function(datos){
+        //console.log(datos);
+        let selVndres =document.getElementById("selectorVendedores");//seleccionar elemento por id
+        selVndres.innerHTML="";//modifica el contenido de un elemento
+        datos.forEach(function(item){//este metodo me permite recorrer un array.en este c
+                                        // aso hago que en cada posicion del array invoque a la funcion
+            //console.log(item);
+            //ahora por cada item añadimos una opcion
+            selVndres.innerHTML += `<option value="${item.id}">${item.apellidos},${item.nombre} </option>`;
+        })
+    });
+</script>
 </body>
 </html>
