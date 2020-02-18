@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            border: solid 1px black;
+        }
+    </style>
 </head>
 <body>
+<table style="border: solid 1px black">
+    <thead>
+    <td>Vendedor</td>
+    <td>Cliente</td>
+    <td>Fecha</td>
+    <td>Importe</td>
+    </thead>
+    <tbody id="tablaVentas"></tbody>
+</table>
+<script>
+    fetch('../api/v1.0/ventas/').then(function (respuesta) {
+        return respuesta.json();
+    }).then(function (datosJson) {
+        let tabla = document.getElementById("tablaVentas");
+        tabla.innerHTML = "";
+        datosJson.forEach(function (item) {
+//console.log(item);
+            tabla.innerHTML += `<tr><td>${item.vendedor.apellidos},
+${item.vendedor.nombre}</td>
+<td>${item.cliente.nombre}</td>
+<td>${item.fecha}</td>
+<td>${item.importe} €</td></tr>`;
+        })
+    });
+
+</script>
 
 </body>
 </html>
